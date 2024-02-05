@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "module": "CommonJS",
+    "target": "ES2022",
+
+    "rootDir": ".",
+    "outDir": "build",
+
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "pretty": true,
+    "strict": true,
+    "incremental": true,
+    "inlineSourceMap": true,
+    "esModuleInterop": true
+  },
+
+  "include": [
+    "lib/**/*",
+    "test/**/*"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "@benricheson101/ts-util",
+  "version": "0.0.0",
+  "description": "A personal collection of reusable utility functions and types",
+  "main": "build/lib/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "^1.5.3",
+    "@types/node": "^20.11.16",
+    "typescript": "^5.3.3"
+  }
+}
