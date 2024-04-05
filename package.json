@@ -2,10 +2,13 @@
   "name": "@benricheson101/ts-util",
   "version": "0.0.0",
   "description": "A personal collection of reusable utility functions and types",
-  "main": "build/lib/index.ts",
+  "main": "build/lib/index.js",
+  "packageManager": "pnpm@8.15.1",
   "scripts": {
     "build": "tsc",
-    "test": "node --test"
+    "lint": "biome lint .",
+    "fmt": "biome format . --write",
+    "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps"
   },
   "keywords": [],
   "author": "",

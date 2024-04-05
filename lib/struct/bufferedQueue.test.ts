@@ -1,10 +1,9 @@
 import {beforeEach, describe, it} from 'node:test';
-import {strictEqual} from 'node:assert';
-import {setTimeout} from 'node:timers/promises';
+import {deepStrictEqual, strictEqual} from 'node:assert';
 
 import {BufferedQueue} from './bufferedQueue';
 
-describe('BufferedQueue', async () => {
+describe('struct/BufferedQueue', async () => {
   type LogType = 'debug' | 'info' | 'error';
   let bq: BufferedQueue<string, LogType>;
 
@@ -12,17 +11,18 @@ describe('BufferedQueue', async () => {
     bq = new BufferedQueue();
   });
 
-  await it('should push', () => {
+  it('pushes to the queue', () => {
     bq.push('info', 'info!');
 
     const eqT = bq.enqueuedTopics();
-    strictEqual(eqT, ['info']);
+    deepStrictEqual(eqT, ['info']);
   });
 
-  it('should dispatch to a handler fn', async t => {
-    const handleFn = (_topic: LogType, _items: string[]) => {};
-    const mockHandleFn = t.mock.fn(handleFn);
+  // blocked by https://github.com/nodejs/node/pull/52332
+  it('dispatches each topic to a handler fn', {skip: true},  t => {
+    t.mock.timers.enable();
 
+    const mockHandleFn = t.mock.fn();
     bq.setHandler(mockHandleFn);
 
     bq.push('info', 'info 1');
@@ -32,7 +32,9 @@ describe('BufferedQueue', async () => {
     bq.push('error', 'error 2');
     bq.push('debug', 'debug 1');
 
-    await setTimeout(510); // 10 extra ms because
+    t.mock.timers.runAll();
+
+    strictEqual(mockHandleFn.mock.callCount(), 3);
 
     const args = Object.fromEntries(
       mockHandleFn.mock.calls.map(c => [c.arguments[0], c.arguments[1].length])
@@ -43,7 +45,7 @@ describe('BufferedQueue', async () => {
     strictEqual(args.debug, 1);
   });
 
-  it('should capture handle fn output', async () => {
+  it('captures handle fn output', async () => {
     bq.setHandler((_, items) => {
       return items.length;
     });
@@ -52,8 +54,27 @@ describe('BufferedQueue', async () => {
     bq.push('info', 'info 2');
     const infoQ = await bq.push('info', 'info 3');
 
-    strictEqual(infoQ, ['info', 3]);
+    deepStrictEqual(infoQ, ['info', 3]);
   });
 
-  // TODO: tests for timeout
+  // blocked by https://github.com/nodejs/node/pull/52332
+  it('splits dispatches by timeout', {skip: true}, t => {
+    t.mock.timers.enable({apis: ['setTimeout']});
+
+    const fn = t.mock.fn();
+    bq.setHandler(fn);
+
+    bq.push('info', '1');
+    bq.push('info', '2');
+    t.mock.timers.tick(300);
+    bq.push('info', '3');
+    bq.push('info', '4');
+    t.mock.timers.tick(200);
+    bq.push('info', '5');
+    bq.push('info', '6');
+
+    strictEqual(fn.mock.callCount(), 1);
+    t.mock.timers.tick(500);
+    strictEqual(fn.mock.callCount(), 2);
+  });
 });

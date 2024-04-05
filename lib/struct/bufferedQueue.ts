@@ -1,4 +1,4 @@
-import {setTimeout} from 'node:timers';
+import timers from 'node:timers';
 import {defer} from '..';
 
 export interface BufferedData<Data, Topic> {
@@ -11,17 +11,17 @@ export interface BufferedData<Data, Topic> {
 export interface BufferedQueueOptions<Data, Topic> {
   timeout?: number;
   maxSize?: number;
-  handler?: HandleFn<Data, Topic>;
+  handler?: BufferedQueueHandleFn<Data, Topic>;
 }
 
-export type HandleFn<Data, Topic> = (
+export type BufferedQueueHandleFn<Data, Topic> = (
   topic: Topic,
   data: Data[]
 ) => unknown | Promise<unknown>;
 
 export class BufferedQueue<Data, Topic = string> {
-  private buf = new Map<Topic, BufferedData<Data, Topic>>();
-  private handler?: HandleFn<Data, Topic>;
+  #buf = new Map<Topic, BufferedData<Data, Topic>>();
+  private handler?: BufferedQueueHandleFn<Data, Topic>;
   private options: BufferedQueueOptions<Data, Topic>;
 
   constructor(options: BufferedQueueOptions<Data, Topic> = {}) {
@@ -40,13 +40,13 @@ export class BufferedQueue<Data, Topic = string> {
     this.options = opts;
   }
 
-  setHandler(f: HandleFn<Data, Topic>) {
+  setHandler(f: BufferedQueueHandleFn<Data, Topic>) {
     this.handler = f;
     return this;
   }
 
   async push(topic: Topic, ...data: Data[]) {
-    let stored = this.buf.get(topic);
+    let stored = this.#buf.get(topic);
 
     if (!stored) {
       const [promise, resolve] = defer<[Topic, unknown]>();
@@ -58,7 +58,7 @@ export class BufferedQueue<Data, Topic = string> {
         resolve,
       };
 
-      this.buf.set(topic, stored);
+      this.#buf.set(topic, stored);
     }
 
     stored.buffer.push(...data);
@@ -73,19 +73,19 @@ export class BufferedQueue<Data, Topic = string> {
     }
 
     if (!stored.timeout && this.options.timeout) {
-      stored.timeout = setTimeout(
+      stored.timeout = timers.setTimeout(
         () => this.#dispatch(topic),
         this.options.timeout
       );
-      this.buf.set(topic, stored);
+      this.#buf.set(topic, stored);
     }
 
     return stored.promise;
   }
 
   async #dispatch(topic: Topic) {
-    const data = this.buf.get(topic);
-    this.buf.delete(topic);
+    const data = this.#buf.get(topic);
+    this.#buf.delete(topic);
 
     if (!data) {
       return;
@@ -98,6 +98,6 @@ export class BufferedQueue<Data, Topic = string> {
   }
 
   enqueuedTopics() {
-    return [...this.buf.keys()];
+    return [...this.#buf.keys()];
   }
 }

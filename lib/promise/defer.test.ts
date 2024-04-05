@@ -2,8 +2,8 @@ import {describe, it} from 'node:test';
 import {defer} from './defer';
 import assert, {fail} from 'node:assert';
 
-describe('defer', () => {
-  it('should resolve the promise', async () => {
+describe('promise/defer', () => {
+  it('resolves the promise', async () => {
     const [promise, resolve] = defer();
 
     assert(promise instanceof Promise);
@@ -11,7 +11,7 @@ describe('defer', () => {
     assert((await promise) === true);
   });
 
-  it('should reject the promise', async () => {
+  it('rejects the promise', async () => {
     const [promise, , reject] = defer();
     reject(new Error('explode!'));
     try {
