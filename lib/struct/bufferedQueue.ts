@@ -3,7 +3,7 @@ import {defer} from '..';
 
 export interface BufferedData<Data, Topic> {
   buffer: Data[];
-  timeout: NodeJS.Timeout;
+  timeout?: NodeJS.Timeout;
   promise: Promise<[Topic, unknown]>;
   resolve: (t: [Topic, unknown]) => void;
 }
@@ -53,7 +53,7 @@ export class BufferedQueue<Data, Topic = string> {
 
       stored = {
         buffer: [],
-        timeout: undefined!,
+        timeout: undefined,
         promise,
         resolve,
       };

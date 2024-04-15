@@ -18,8 +18,7 @@ describe('struct/BufferedQueue', async () => {
     deepStrictEqual(eqT, ['info']);
   });
 
-  // blocked by https://github.com/nodejs/node/pull/52332
-  it('dispatches each topic to a handler fn', {skip: true},  t => {
+  it('dispatches each topic to a handler fn', t => {
     t.mock.timers.enable();
 
     const mockHandleFn = t.mock.fn();
@@ -57,8 +56,7 @@ describe('struct/BufferedQueue', async () => {
     deepStrictEqual(infoQ, ['info', 3]);
   });
 
-  // blocked by https://github.com/nodejs/node/pull/52332
-  it('splits dispatches by timeout', {skip: true}, t => {
+  it('splits dispatches by timeout', t => {
     t.mock.timers.enable({apis: ['setTimeout']});
 
     const fn = t.mock.fn();
