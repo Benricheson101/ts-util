@@ -55,4 +55,4 @@ jobs:
       - name: publish
         run: pnpm publish --no-git-checks
         env:
-          NODE_AUTH_TOKEN: '${{env.NODE_AUTH_TOKEN}}'
+          NPM_TOKEN: '${{secrets.NPM_TOKEN}}'
