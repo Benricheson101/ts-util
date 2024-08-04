@@ -49,4 +49,7 @@ jobs:
           name: '@benricheson101-util-pkg'
           path: .
 
-      - run: ls *
+      - name: publish
+        run: pnpm publish ./benricheson101-util-*.tgz
+        env:
+          NODE_AUTH_TOKEN: '${{env.NODE_AUTH_TOKEN}}'
