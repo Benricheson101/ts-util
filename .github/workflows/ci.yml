@@ -30,7 +30,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: '@benricheson101/util-pkg'
+          name: '@benricheson101-util-pkg'
           path: ./benricheson101-util-*.tgz
 
   release:
@@ -46,7 +46,7 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: '@benricheson101/util-pkg'
+          name: '@benricheson101-util-pkg'
           path: .
 
       - run: ls *
