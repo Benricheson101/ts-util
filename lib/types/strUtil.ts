@@ -20,3 +20,9 @@ export type SnakeCaseToCamelCase<S extends string> = DelimCaseToCamelCase<
   S,
   '_'
 >;
+
+export type SnakeToCamel<S extends object> = {
+  [key in keyof S as key extends string
+    ? SnakeCaseToCamelCase<key>
+    : key]: S[key];
+};

@@ -1,21 +1,25 @@
 {
-  "name": "@benricheson101/ts-util",
-  "version": "0.0.0",
+  "name": "@benricheson101/util",
+  "version": "1.0.0",
   "description": "A personal collection of reusable utility functions and types",
   "main": "build/lib/index.js",
-  "packageManager": "pnpm@8.15.1",
   "scripts": {
     "build": "tsc",
     "lint": "biome lint .",
     "fmt": "biome format . --write",
     "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["util", "utility"],
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
     "@types/node": "^20.11.16",
     "typescript": "^5.3.3"
-  }
+  },
+  "files": [
+    "build",
+    "biome.json",
+    "tsconfig.json",
+    "LICENSE"
+  ]
 }

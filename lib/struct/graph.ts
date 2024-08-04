@@ -1,5 +1,8 @@
-export class Graph<K, V> extends Map<K, {data: V; neighbors: Map<K, number>}> {
-  addVertex(id: K, data: V) {
+export class Graph<K, V = undefined> extends Map<
+  K,
+  {data?: V; neighbors: Map<K, number>}
+> {
+  addVertex(id: K, data?: V) {
     if (this.has(id)) {
       throw new Error('vertex exists');
     }
@@ -16,5 +19,8 @@ export class Graph<K, V> extends Map<K, {data: V; neighbors: Map<K, number>}> {
     fromVertex.neighbors.set(to, weight);
   }
 
-  // TODO: BFS, DFS, A*, Dijkstra's?
+  addEdgeUndirected(from: K, to: K, weight = 0) {
+    this.addEdge(from, to, weight);
+    this.addEdge(to, from, weight);
+  }
 }
