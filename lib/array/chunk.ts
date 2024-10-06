@@ -4,10 +4,10 @@
  * @param chunkSize the max size of a chunk
  * @returns the chunked array
  */
-export const chunk = <T>(list: T[], chunkSize: number): T[][] => {
-  return list.reduce((acc, curr, i) => {
+export const chunk = <T>(list: T[], chunkSize: number): T[][] =>
+  list.reduce((acc, curr, i) => {
     const cn = Math.floor(i / chunkSize);
-    acc[cn] = ([] as T[]).concat(acc[cn] || [], curr);
+    acc[cn] ||= [];
+    acc[cn].push(curr);
     return acc;
   }, [] as T[][]);
-};

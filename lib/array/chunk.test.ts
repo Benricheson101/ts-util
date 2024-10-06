@@ -22,4 +22,27 @@ describe('array/chunk', () => {
       [5, 6],
     ]);
   });
+
+  it('chunks multi-dimensional arrays', () => {
+    const array = [
+      ['a', 0],
+      ['b', 1],
+      ['c', 2],
+      ['d', 3],
+      ['e', 4],
+    ];
+
+    const chunks = chunk(array, 2);
+    deepStrictEqual(chunks, [
+      [
+        ['a', 0],
+        ['b', 1],
+      ],
+      [
+        ['c', 2],
+        ['d', 3],
+      ],
+      [['e', 4]],
+    ]);
+  });
 });
