@@ -26,7 +26,7 @@ export class RadixNode<T> {
     return results;
   }
 
-  dfs(term: string): RadixNode<T> | undefined {
+  dfs(term: string, partial = false): RadixNode<T> | undefined {
     const toVisit = new Stack<RadixNode<T>>();
     toVisit.push(this);
 
@@ -35,11 +35,12 @@ export class RadixNode<T> {
     while (!toVisit.empty()) {
       const node = toVisit.pop()!;
 
-      if (node.term === term && node.isLeaf) {
+      if (node.term === term && (node.isLeaf || partial)) {
         return node;
       }
 
-      const [e, n] = [...node.edges.entries()].find(([k]) => prefixOverlap(k, _term)) || [];
+      const [e, n] =
+        [...node.edges.entries()].find(([k]) => prefixOverlap(k, _term)) || [];
 
       if (e && n) {
         toVisit.push(n);
@@ -49,10 +50,13 @@ export class RadixNode<T> {
   }
 }
 
-export class RadixTree<T = string> {
-  #tree = new RadixNode<T>(null as T, '', false);
+export class RadixTree<T = undefined> {
+  readonly tree = new RadixNode<T>(null as T, '', false);
 
-  insert(term: string, data?: T) {
+  insert(
+    ...args: T extends undefined ? [term: string] : [term: string, data: T]
+  ) {
+    let [term, data] = args;
     const _term = term;
 
     const walkTree = (tree: RadixNode<T>): RadixNode<T> => {
@@ -63,7 +67,11 @@ export class RadixTree<T = string> {
           if (ol !== edge) {
             const newRemEdge = edge.slice(ol.length);
 
-            const newEdge = new RadixNode(null as T, _term.slice(0, _term.length - term.length + ol.length), false);
+            const newEdge = new RadixNode(
+              null as T,
+              _term.slice(0, _term.length - term.length + ol.length),
+              false
+            );
             newEdge.edges.set(newRemEdge, tree.edges.get(edge)!);
 
             tree.edges.set(ol, newEdge);
@@ -71,7 +79,6 @@ export class RadixTree<T = string> {
             edge = ol;
           }
 
-          // biome-ignore lint/style/noParameterAssign: i want it
           term = term.slice(ol.length);
           if (term) {
             return walkTree(tree.edges.get(edge)!);
@@ -83,33 +90,37 @@ export class RadixTree<T = string> {
       return tree;
     };
 
-    const tree = walkTree(this.#tree);
+    const tree = walkTree(this.tree);
 
     if (term) {
-      tree.edges.set(term, new RadixNode((data || term) as T, _term));
+      tree.edges.set(term, new RadixNode(data as T, _term));
     } else {
       tree.isLeaf = true;
-      tree.data = (data || term) as T;
+      tree.data = data as T;
     }
 
     return this;
   }
 
   search(term: string): T | undefined {
-    const bottomNode = this.#tree.dfs(term);
+    const bottomNode = this.tree.dfs(term);
     return bottomNode?.isLeaf ? bottomNode.data : undefined;
   }
 
+  has(term: string): boolean | undefined {
+    const bottomNode = this.tree.dfs(term);
+    return !!bottomNode?.isLeaf;
+  }
+
   getChildren(term: string): string[] {
-    const startingNode = this.#tree.dfs(term);
+    const startingNode = this.tree.dfs(term, true);
     if (!startingNode) {
       return [];
     }
 
-    return startingNode.dft().filter(n => n.isLeaf).map(n => n.term);
-  }
-
-  get tree() {
-    return this.#tree;
+    return startingNode
+      .dft()
+      .filter(n => n.isLeaf)
+      .map(n => n.term);
   }
 }
