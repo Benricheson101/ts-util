@@ -35,7 +35,10 @@ export class RadixNode<T> {
     while (!toVisit.empty()) {
       const node = toVisit.pop()!;
 
-      if (node.term === term && (node.isLeaf || partial)) {
+      if (
+        (node.term === term && node.isLeaf) ||
+        ((node.term === term || !_term) && partial)
+      ) {
         return node;
       }
 
