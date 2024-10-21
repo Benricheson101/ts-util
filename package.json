@@ -10,20 +10,12 @@
     "fmt": "biome check . --write",
     "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps"
   },
-  "keywords": [
-    "util",
-    "utility"
-  ],
+  "keywords": ["util", "utility"],
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "^1.9.1",
     "@types/node": "^20.11.16",
     "typescript": "^5.3.3"
   },
-  "files": [
-    "build",
-    "biome.json",
-    "tsconfig.json",
-    "LICENSE"
-  ]
+  "files": ["build", "biome.json", "tsconfig.json", "LICENSE"]
 }
