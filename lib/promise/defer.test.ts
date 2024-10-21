@@ -1,6 +1,6 @@
+import assert, {fail} from 'node:assert';
 import {describe, it} from 'node:test';
 import {defer} from './defer';
-import assert, {fail} from 'node:assert';
 
 describe('promise/defer', () => {
   it('resolves the promise', async () => {

@@ -1,5 +1,5 @@
-import {describe, it} from 'node:test';
 import {deepStrictEqual} from 'node:assert';
+import {describe, it} from 'node:test';
 
 import {chunkStringAt} from './chunkStringAt';
 

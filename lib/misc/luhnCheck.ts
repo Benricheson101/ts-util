@@ -5,10 +5,15 @@ export const computeLuhnCheckDigit = (nr: number) => {
     .replaceAll(/\D/g, '')
     .split('')
     .toReversed()
-    .map((n, i) => (i % 2 ? Number(n) : Number(n) * 2).toString().split('').reduce((a, c) => Number(c) + a, 0))
+    .map((n, i) =>
+      (i % 2 ? Number(n) : Number(n) * 2)
+        .toString()
+        .split('')
+        .reduce((a, c) => Number(c) + a, 0)
+    )
     .reduce((a, c) => a + c, 0);
 
-  return 10 - (s % 10) % 10;
+  return 10 - ((s % 10) % 10);
 };
 
 /** computes a Luhn check digit for a number and appends it */

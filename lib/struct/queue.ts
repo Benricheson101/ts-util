@@ -23,4 +23,8 @@ export class Queue<Data> {
   size() {
     return this.#buf.length;
   }
+
+  get buf() {
+    return this.#buf;
+  }
 }

@@ -19,6 +19,8 @@ export type BufferedQueueHandleFn<Data, Topic> = (
   data: Data[]
 ) => unknown | Promise<unknown>;
 
+// TODO: make an option to not dispatch immediately on filled (combination of bufferedqueue and throttledqueue)
+
 export class BufferedQueue<Data, Topic = string> {
   #buf = new Map<Topic, BufferedData<Data, Topic>>();
   private handler?: BufferedQueueHandleFn<Data, Topic>;

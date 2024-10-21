@@ -20,8 +20,5 @@
     "esModuleInterop": true
   },
 
-  "include": [
-    "lib/**/*",
-    "test/**/*"
-  ]
+  "include": ["lib/**/*", "test/**/*"]
 }

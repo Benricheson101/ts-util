@@ -1,5 +1,5 @@
-import {beforeEach, describe, it} from 'node:test';
 import {deepStrictEqual, strictEqual} from 'node:assert';
+import {beforeEach, describe, it} from 'node:test';
 
 import {BufferedQueue} from './bufferedQueue';
 

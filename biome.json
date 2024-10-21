@@ -40,7 +40,9 @@
         "noNonNullAssertion": "off"
       },
 
-      "suspicious": {}
+      "suspicious": {
+        "noExplicitAny": "off"
+      }
     }
   },
 
