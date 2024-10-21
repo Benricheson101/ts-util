@@ -2,14 +2,20 @@ import {RadixTree} from './radixTree';
 
 export class SuffixTree<T = undefined> {
   readonly tree = new RadixTree<{data: T; term: string}>();
+  #terminatorNumber = 0;
+  #terminatorCharacter = '$';
 
   insert(
     ...args: T extends undefined ? [term: string] : [term: string, data: T]
   ) {
-    const [term, data] = args as [term: string, data: T];
+    let [term, data] = args as [term: string, data: T];
     const nodeData = {term, data};
 
-    for (let i = 0; i < term.length; i++) {
+    const termLen = term.length;
+
+    term += `${this.#terminatorCharacter}${this.#terminatorNumber++}`;
+
+    for (let i = 0; i < termLen; i++) {
       this.tree.insert(term.slice(i), nodeData);
     }
 

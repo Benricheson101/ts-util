@@ -11,4 +11,19 @@ describe('struct/SuffixTree', () => {
     deepStrictEqual(st.getChildren('an'), ['banana']);
     deepStrictEqual(st.getChildren('a'), ['banana']);
   });
+
+  it('inserts terms with common substrings', () => {
+    const st = new SuffixTree();
+    st.insert('caption');
+    st.insert('action');
+    st.insert('option');
+    st.insert('optional');
+
+    deepStrictEqual(st.getChildren('tion'), [
+      'optional',
+      'option',
+      'action',
+      'caption',
+    ]);
+  });
 });
