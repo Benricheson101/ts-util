@@ -8,22 +8,16 @@
     "build": "tsc",
     "lint": "biome lint .",
     "fmt": "biome check . --write",
-    "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps"
+    "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps",
+    "prepare": "husky"
   },
-  "keywords": [
-    "util",
-    "utility"
-  ],
+  "keywords": ["util", "utility"],
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "^1.9.1",
     "@types/node": "^20.11.16",
+    "husky": "^9.1.6",
     "typescript": "^5.3.3"
   },
-  "files": [
-    "build",
-    "biome.json",
-    "tsconfig.json",
-    "LICENSE"
-  ]
+  "files": ["build", "biome.json", "tsconfig.json", "LICENSE"]
 }

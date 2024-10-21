@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+staged_files=$(git diff --cached --name-only --diff-filter ACMR)
+pnpm fmt
+git add $staged_files
+
+pnpm test
