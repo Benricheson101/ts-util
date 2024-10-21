@@ -1,6 +1,6 @@
 {
   "name": "@benricheson101/util",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "private": false,
   "description": "A personal collection of reusable utility functions and types",
   "main": "build/lib/index.js",
@@ -10,12 +10,20 @@
     "fmt": "biome check . --write",
     "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps"
   },
-  "keywords": ["util", "utility"],
+  "keywords": [
+    "util",
+    "utility"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "^1.9.1",
     "@types/node": "^20.11.16",
     "typescript": "^5.3.3"
   },
-  "files": ["build", "biome.json", "tsconfig.json", "LICENSE"]
+  "files": [
+    "build",
+    "biome.json",
+    "tsconfig.json",
+    "LICENSE"
+  ]
 }
