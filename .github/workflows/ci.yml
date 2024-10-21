@@ -53,6 +53,11 @@ jobs:
       - name: build
         run: pnpm build
 
+      - env:
+          NPM_TOKEN: '${{secrets.NPM_TOKEN}}'
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+
       - name: publish
         run: pnpm publish --no-git-checks --access public
         env:
