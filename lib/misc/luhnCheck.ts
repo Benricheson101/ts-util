@@ -13,7 +13,7 @@ export const computeLuhnCheckDigit = (nr: number) => {
     )
     .reduce((a, c) => a + c, 0);
 
-  return 10 - ((s % 10) % 10);
+  return (10 - (s % 10)) % 10;
 };
 
 /** computes a Luhn check digit for a number and appends it */
