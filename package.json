@@ -4,20 +4,21 @@
   "private": false,
   "description": "A personal collection of reusable utility functions and types",
   "main": "build/lib/index.js",
+  "sideEffects": false,
   "scripts": {
     "build": "tsc",
     "lint": "biome lint .",
     "fmt": "biome check . --write",
-    "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps",
+    "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps --experimental-test-coverage",
     "prepare": "husky"
   },
   "keywords": ["util", "utility"],
   "license": "MIT",
   "devDependencies": {
-    "@biomejs/biome": "^1.9.1",
-    "@types/node": "^20.11.16",
-    "husky": "^9.1.6",
-    "typescript": "^5.3.3"
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^20.17.10",
+    "husky": "^9.1.7",
+    "typescript": "^5.7.2"
   },
   "files": ["build", "biome.json", "tsconfig.json", "LICENSE", "templates"]
 }
