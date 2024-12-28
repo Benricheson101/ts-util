@@ -40,7 +40,9 @@ export type Brander<B extends UnknownBrand> = typeof brand<B>;
 /** Downcasts a branded type to its concrete type */
 export const identify = <B extends UnknownBrand>(b: B): Identify<B> => b;
 
-export type BrandAssertion<B extends UnknownBrand> = Assertion<Identify<B>, B>;
+export type BrandAssertion<B extends UnknownBrand> =
+  | Assertion<Identify<B>, B>
+  | ((v: Identify<B>) => boolean);
 
 /**
  * Creates a factory for creating branded types. The optional assertion function should
