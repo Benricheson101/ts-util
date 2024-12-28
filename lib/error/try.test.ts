@@ -35,4 +35,14 @@ describe('error/try$', () => {
     deepStrictEqual(f(3), [null, 3]);
     deepStrictEqual(f(4), [null, 4]);
   });
+
+  it('should retain `this`', () => {
+    const f = try$(function (this: string) {
+      return this;
+    });
+
+    const g = f.bind('test');
+
+    deepStrictEqual(g(), ['test', null]);
+  });
 });

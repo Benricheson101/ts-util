@@ -1,6 +1,4 @@
-export type ResultTuple<T, E = unknown> =
-  | readonly [T, null]
-  | readonly [null, E];
+export type Result<T, E = unknown> = readonly [T, null] | readonly [null, E];
 
 /** wraps a function to return `[T, E]` instead of `T throws E` */
 export const try$ = <E, F extends (...args: Parameters<F>) => ReturnType<F>>(
@@ -9,7 +7,7 @@ export const try$ = <E, F extends (...args: Parameters<F>) => ReturnType<F>>(
   function (
     this: ThisParameterType<F>,
     ...args: Parameters<F>
-  ): ResultTuple<ReturnType<F>, E> {
+  ): Result<ReturnType<F>, E> {
     try {
       return [f.apply(this, args) as ReturnType<F>, null];
     } catch (err) {
