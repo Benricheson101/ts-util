@@ -1,5 +1,9 @@
 import {RadixTree} from './radixTree';
 
+/**
+ * Similar to a {@link RadixTree}, but inserts every suffix of a term.
+ * This is useful for autocompletion or searching from the middle of a term
+ */
 export class SuffixTree<T = undefined> {
   readonly tree = new RadixTree<{data: T; term: string}>();
   #terminatorNumber = 0;
@@ -23,12 +27,11 @@ export class SuffixTree<T = undefined> {
   }
 
   getChildren(term: string): string[] {
-    const startingNode = this.tree.tree.dfs(term, true);
+    const startingNode = this.tree.search(term);
     if (!startingNode) {
       return [];
     }
 
-    // FIXME: should I have to dedupe these or am I doing something wrong
     return Array.from(
       new Set(
         startingNode

@@ -8,24 +8,24 @@ describe('struct/RadixTree', () => {
     const rt = new RadixTree();
     rt.insert('ben').insert('richeson');
 
-    ok(rt.tree.edges.has('ben'));
-    ok(rt.tree.edges.has('richeson'));
+    ok(rt.has('b'));
+    ok(rt.has('r'));
   });
 
   it('inserts overlapping terms with existing prefix', () => {
-    const rt = new RadixTree();
+    const rt = new RadixTree<undefined>();
     rt.insert('benjamin').insert('bendy');
 
-    ok(rt.tree.edges.get('ben')!.edges.has('jamin'));
-    ok(rt.tree.edges.get('ben')!.edges.has('dy'));
+    ok(rt.get('b')?.has('j'));
+    ok(rt.get('b')?.has('d'));
   });
 
   it('inserts overlapping terms requiring splitting prefix', () => {
-    const rt = new RadixTree();
+    const rt = new RadixTree<undefined>();
     rt.insert('richeson').insert('red').insert('bendy');
 
-    ok(rt.tree.edges.get('r')!.edges.has('ed'));
-    ok(rt.tree.edges.get('r')!.edges.has('icheson'));
+    ok(rt.get('r')?.has('e'));
+    ok(rt.get('r')?.has('i'));
   });
 
   it('returns all children with the same prefix', () => {
@@ -47,23 +47,24 @@ describe('struct/RadixTree', () => {
       .insert('richeson', 'richeson')
       .insert('red', 'red');
 
-    strictEqual(rt.search('ben'), 'ben');
-    strictEqual(rt.search('benjamin'), 'benjamin');
-    strictEqual(rt.search('richeson'), 'richeson');
+    strictEqual(rt.search('ben')?.data, 'ben');
+    strictEqual(rt.search('benjamin')?.data, 'benjamin');
+    strictEqual(rt.search('richeson')?.data, 'richeson');
 
-    ok(rt.has('ben'));
-    ok(rt.has('benjamin'));
-    ok(rt.has('richeson'));
+    ok(rt.has('b'));
+    ok(rt.has('r'));
   });
 
-  it('searches and does not find non-leaves', () => {
-    const rt = new RadixTree();
-    rt.insert('ben').insert('benjamin');
+  it('holds data', () => {
+    const rt = new RadixTree<{a: string}>();
 
-    strictEqual(rt.search('r'), undefined);
-    strictEqual(rt.search('be'), undefined);
+    rt.insert('ben', {a: 'first'});
+    rt.insert('bed', {a: 'second'});
+    rt.insert('bad', {a: 'third'});
 
-    ok(!rt.has('r'));
-    ok(!rt.has('be'));
+    deepStrictEqual(rt.get('b')?.data, null);
+    deepStrictEqual(rt.get('b')?.get('e')?.get('n')?.data, {a: 'first'});
+    deepStrictEqual(rt.get('b')?.get('e')?.get('d')?.data, {a: 'second'});
+    deepStrictEqual(rt.get('b')?.get('a')?.data, {a: 'third'});
   });
 });
