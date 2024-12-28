@@ -1,7 +1,7 @@
 import {strictEqual} from 'node:assert';
 import {describe, it} from 'node:test';
 
-import {prefixOverlap} from './prefixOverlap';
+import {prefixOverlap, slicePrefixOverlap} from './prefixOverlap';
 
 describe('string/prefixOverlap', () => {
   it('finds overlapping prefixes (a longer than b)', () => {
@@ -17,5 +17,12 @@ describe('string/prefixOverlap', () => {
   it('does not find non-overlapping prefixes', () => {
     const ol = prefixOverlap('abcdefg', 'zyxwv');
     strictEqual(ol, '');
+  });
+});
+
+describe('string/slicePrefixOverlap', () => {
+  it('removes the overlapping front of two strings', () => {
+    const ol = slicePrefixOverlap('abcd', 'abe');
+    strictEqual(ol, 'cd');
   });
 });
