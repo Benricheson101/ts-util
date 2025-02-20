@@ -42,5 +42,8 @@
         "default": "./build/index.js"
       }
     }
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["@biomejs/biome", "esbuild"]
   }
 }
