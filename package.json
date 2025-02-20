@@ -1,6 +1,6 @@
 {
   "name": "@benricheson101/util",
-  "version": "1.5.1",
+  "version": "1.5.0",
   "private": false,
   "description": "A personal collection of reusable utility functions and types",
   "main": "./build/index.js",
