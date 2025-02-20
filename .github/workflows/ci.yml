@@ -15,7 +15,7 @@ jobs:
         with:
           version: latest
       - run: corepack enable
-      - run: pnpm i -D
+      - run: pnpm i
 
       - name: lint
         run: biome lint .
