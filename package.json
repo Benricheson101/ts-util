@@ -1,10 +1,12 @@
 {
   "name": "@benricheson101/util",
+  "repository": {
+    "url": "https://github.com/Benricheson101/ts-util"
+  },
+  "homepage": "https://github.com/Benricheson101/ts-util",
   "version": "1.5.0",
   "private": false,
   "description": "A personal collection of reusable utility functions and types",
-  "main": "./build/index.js",
-  "types": "./build/index.d.ts",
   "scripts": {
     "build": "tsup",
     "clean": "rm -rf build tests .tsbuildinfo",
@@ -32,6 +34,8 @@
     "templates"
   ],
   "sideEffects": false,
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "exports": {
     ".": {
       "import": {
