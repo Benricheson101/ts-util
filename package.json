@@ -9,7 +9,7 @@
     "build": "tsc",
     "lint": "biome lint .",
     "fmt": "biome check . --write",
-    "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps --experimental-test-coverage",
+    "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps --experimental-test-coverage --no-experimental-strip-types './build/**/*.test.js'",
     "prepare": "husky"
   },
   "keywords": ["util", "utility"],
