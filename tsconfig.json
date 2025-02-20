@@ -5,7 +5,7 @@
     "target": "ES2022",
 
     "rootDir": ".",
-    "outDir": "build",
+    "noEmit": true,
 
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -16,9 +16,10 @@
     "pretty": true,
     "strict": true,
     "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo",
     "inlineSourceMap": true,
     "esModuleInterop": true
   },
 
-  "include": ["lib/**/*", "test/**/*"]
+  "include": ["lib/**/*"]
 }

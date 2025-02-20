@@ -3,13 +3,13 @@
   "version": "1.4.0",
   "private": false,
   "description": "A personal collection of reusable utility functions and types",
-  "main": "build/lib/index.js",
-  "sideEffects": false,
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "lint": "biome lint .",
     "fmt": "biome check . --write",
-    "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps --experimental-test-coverage --no-experimental-strip-types './build/**/*.test.js'",
+    "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps --experimental-test-coverage --no-experimental-strip-types './build/**/*.test.mjs'",
     "prepare": "husky"
   },
   "keywords": ["util", "utility"],
@@ -18,7 +18,29 @@
     "@biomejs/biome": "^1.9.4",
     "@types/node": "^20.17.10",
     "husky": "^9.1.7",
+    "tsup": "^8.3.6",
     "typescript": "^5.7.2"
   },
-  "files": ["build", "biome.json", "tsconfig.json", "LICENSE", "templates"]
+  "files": [
+    "build",
+    "!**/*.test.*",
+    "!**/*.tsbuildinfo",
+    "biome.json",
+    "tsconfig.json",
+    "LICENSE",
+    "templates"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/index.d.mts",
+        "default": "./build/index.mjs"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
+    }
+  }
 }
