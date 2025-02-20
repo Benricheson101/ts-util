@@ -4,5 +4,7 @@ staged_files=$(git diff --cached --name-only --diff-filter ACMR)
 pnpm fmt
 git add $staged_files
 
-pnpm build
+rm -rf tests .tsbuildinfo
+pnpm tsc --outDir tests --noEmit false
 pnpm test
+rm -rf tests .tsbuildinfo

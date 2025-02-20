@@ -27,19 +27,12 @@ jobs:
       - name: lint
         run: biome lint .
 
+        # TODO: get test coverage to work with tsup builds
       - name: build
-        run: pnpm build
+        run: pnpm tsc --noEmit false --outDir tests
 
       - name: test
         run: pnpm test
-
-      - name: pack
-        run: pnpm pack
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: '@benricheson101-util-pkg'
-          path: ./benricheson101-util-*.tgz
 
   release:
     runs-on: ubuntu-latest
@@ -69,3 +62,11 @@ jobs:
         run: pnpm publish --no-git-checks --access public
         env:
           NPM_TOKEN: '${{secrets.NPM_TOKEN}}'
+
+      - name: pack
+        run: pnpm pack
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: '@benricheson101-util-pkg'
+          path: ./benricheson101-util-*.tgz

@@ -7,9 +7,10 @@
   "types": "./build/index.d.ts",
   "scripts": {
     "build": "tsup",
+    "clean": "rm -rf build tests .tsbuildinfo",
     "lint": "biome lint .",
     "fmt": "biome check . --write",
-    "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps --experimental-test-coverage --no-experimental-strip-types './build/**/*.test.mjs'",
+    "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps --experimental-test-coverage --no-experimental-strip-types './tests/**/*.js'",
     "prepare": "husky"
   },
   "keywords": ["util", "utility"],

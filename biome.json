@@ -2,7 +2,7 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 
   "files": {
-    "ignore": ["./build", "./dist", "./node_modules"]
+    "ignore": ["./build", "./dist", "./node_modules", "./tests"]
   },
 
   "organizeImports": {
