@@ -2,6 +2,14 @@ on:
   push:
     branches: [main]
     tags: ['*']
+    paths:
+      - lib
+      - templates
+      - package.json
+      - pnpm-lock.yaml
+      - tsconfig.json
+      - tsup.config.js
+
   workflow_dispatch:
     inputs:
       release:
