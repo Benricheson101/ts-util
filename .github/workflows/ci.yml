@@ -11,12 +11,12 @@ on:
       - tsup.config.js
 
   workflow_dispatch:
-    inputs:
-      release:
-        type: boolean
-        description: Publish to NPM
-        required: false
-        default: false
+    # inputs:
+    #   release:
+    #     type: boolean
+    #     description: Publish to NPM
+    #     required: false
+    #     default: false
 
 jobs:
   tests-node:
@@ -41,6 +41,21 @@ jobs:
 
       - name: test
         run: pnpm test
+
+      - run: pnpm clean
+      - run: pnpm build
+      - run: pnpm pack
+
+      - uses: actions/upload-artifact@v4
+        id: upload
+        with:
+          name: '@benricheson101-util-pkg'
+          path: ./benricheson101-util-*.tgz
+
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: '@benricheson101-util-pkg.zip'
+          subject-digest: sha256:${{steps.upload.outputs.artifact-digest}}
 
   release:
     runs-on: ubuntu-latest
@@ -69,21 +84,12 @@ jobs:
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
 
+      - if: ${{inputs.release}}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
       - name: publish
         run: pnpm publish --no-git-checks --access public
         env:
           NPM_TOKEN: '${{secrets.NPM_TOKEN}}'
-
-      - name: pack
-        run: pnpm pack
-
-      - uses: actions/upload-artifact@v4
-        id: upload
-        with:
-          name: '@benricheson101-util-pkg'
-          path: ./benricheson101-util-*.tgz
-
-      - uses: actions/attest-build-provenance@v2
-        with:
-          subject-name: '@benricheson101-util-pkg.zip'
-          subject-digest: sha256:${{steps.upload.outputs.artifact-digest}}
