@@ -1,3 +1,4 @@
+export * from './algo';
 export * from './array';
 export * from './error';
 export * from './fn';
