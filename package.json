@@ -4,7 +4,7 @@
     "url": "https://github.com/Benricheson101/ts-util"
   },
   "homepage": "https://github.com/Benricheson101/ts-util",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "private": false,
   "description": "A personal collection of reusable utility functions and types",
   "scripts": {
