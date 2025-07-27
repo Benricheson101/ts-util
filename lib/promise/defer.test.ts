@@ -1,5 +1,6 @@
 import assert, {fail} from 'node:assert';
 import {describe, it} from 'node:test';
+
 import {defer} from './defer';
 
 describe('promise/defer', () => {

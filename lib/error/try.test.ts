@@ -1,5 +1,6 @@
 import {deepStrictEqual} from 'node:assert';
 import {describe, it} from 'node:test';
+
 import {try$} from './try';
 
 describe('error/try$', () => {

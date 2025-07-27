@@ -1,5 +1,6 @@
 import {strictEqual} from 'node:assert';
 import {describe, it} from 'node:test';
+
 import {capitalize} from './capitalize';
 
 describe('string/capitalize', () => {

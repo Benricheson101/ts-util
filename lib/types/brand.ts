@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import type {Assertion} from './util';
 
 export declare const BrandKey: unique symbol;

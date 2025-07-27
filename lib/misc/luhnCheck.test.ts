@@ -1,5 +1,6 @@
 import assert, {strictEqual} from 'node:assert';
 import {describe, it} from 'node:test';
+
 import {
   computeLuhnCheckDigit,
   fromLuhn,

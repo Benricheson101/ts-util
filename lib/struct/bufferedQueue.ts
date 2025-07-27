@@ -1,4 +1,5 @@
 import timers from 'node:timers';
+
 import {defer} from '..';
 
 export interface BufferedData<Data, Topic> {

@@ -1,5 +1,6 @@
 import {deepStrictEqual} from 'node:assert';
 import {describe, it} from 'node:test';
+
 import {chunk} from './chunk';
 
 describe('array/chunk', () => {
