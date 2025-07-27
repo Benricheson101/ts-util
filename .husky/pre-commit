@@ -5,6 +5,5 @@ pnpm fmt
 git add $staged_files
 
 rm -rf tests .tsbuildinfo
-pnpm tsc --outDir tests --noEmit false
 pnpm test
 rm -rf tests .tsbuildinfo

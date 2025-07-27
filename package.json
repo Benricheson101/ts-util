@@ -12,6 +12,7 @@
     "clean": "rm -rf build tests .tsbuildinfo",
     "lint": "biome lint .",
     "fmt": "biome check . --write",
+    "pretest": "tsc --outDir tests --noEmit false",
     "test": "node --disable-warning=ExperimentalWarning --test --enable-source-maps --experimental-test-coverage --no-experimental-strip-types './tests/**/*.js'",
     "prepare": "husky"
   },
